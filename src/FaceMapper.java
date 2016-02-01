@@ -1,31 +1,27 @@
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
-import java.awt.Image;
-
-import javax.swing.JTextPane;
-
-import java.awt.SystemColor;
-import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.io.File;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 
 public class FaceMapper extends JFrame
 {
@@ -66,8 +62,6 @@ public class FaceMapper extends JFrame
 		mainContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
-		
-
 		
 		JPanel rawImagePanel = new JPanel();
 		rawImagePanel.setBackground(SystemColor.controlHighlight);
@@ -156,6 +150,19 @@ public class FaceMapper extends JFrame
 				
 			}
 		});
+		genFaceMapButton.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent e)
+			{
+				//DEBUG
+				//System.out.println("testing mouse events");
+				
+				if (storedImage != null)
+				{
+					//it begins
+				}		
+			}
+		});
 		genFaceMapButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		genFaceMapButton.setBounds(189, 11, 258, 35);
 		generateFaceMapPanel.add(genFaceMapButton);
@@ -195,12 +202,12 @@ public class FaceMapper extends JFrame
 	
 	private Image scaleImageHelper(int labelWidth, int labelHeight, Image image)
 	{
-		ImageIcon hWTest= new ImageIcon(image);
+		ImageIcon hWTest = new ImageIcon(image);
 		
 		storedImage = image;
 		//DEBUG
 		//hWTest.getIconWidth();
-		System.out.println(hWTest.getIconWidth() + " " + hWTest.getIconHeight());
+		//System.out.println(hWTest.getIconWidth() + " " + hWTest.getIconHeight());
 		
 		if((hWTest.getIconWidth()*1.0)/hWTest.getIconHeight() > (labelWidth*1.0)/labelHeight)
 		{
