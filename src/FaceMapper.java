@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class FaceMapper extends JFrame
 {
@@ -94,6 +95,9 @@ public class FaceMapper extends JFrame
 				
 				JFileChooser jFileChooser = new JFileChooser();
 				jFileChooser.setCurrentDirectory(new File("/Users"));
+				
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "JPG", "GIF", "gif", "JPEG", "png", "PNG");
+				jFileChooser.setFileFilter(filter);
 				
 				int result = jFileChooser.showOpenDialog(new JFrame());
 				
