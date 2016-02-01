@@ -17,6 +17,8 @@ import java.awt.Color;
 import javax.swing.JList;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class FaceMapper extends JFrame
 {
@@ -71,11 +73,17 @@ public class FaceMapper extends JFrame
 		
 		JPanel uploadImagePanel = new JPanel();
 		uploadImagePanel.setBackground(SystemColor.controlHighlight);
-		uploadImagePanel.setBounds(797, 11, 457, 75);
+		uploadImagePanel.setBounds(797, 11, 457, 53);
 		mainContentPane.add(uploadImagePanel);
-		uploadImagePanel.setLayout(null);
 		
 		JButton button = new JButton("Upload Image");
+		button.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent e)
+			{
+				
+			}
+		});
 		button.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		button.addActionListener(new ActionListener()
 		{
@@ -84,39 +92,43 @@ public class FaceMapper extends JFrame
 				
 			}
 		});
-		button.setBounds(187, 11, 260, 50);
+		uploadImagePanel.setLayout(null);
+		button.setBounds(244, 11, 203, 31);
 		uploadImagePanel.add(button);
 		
 		JTextPane txtpnClickAboveTo = new JTextPane();
+		txtpnClickAboveTo.setBounds(0, 0, 249, 53);
+		uploadImagePanel.add(txtpnClickAboveTo);
 		txtpnClickAboveTo.setBackground(SystemColor.controlHighlight);
 		txtpnClickAboveTo.setText("Cliick right to upload the image for detection or to load faces into the threat database.");
-		txtpnClickAboveTo.setBounds(10, 11, 167, 50);
-		uploadImagePanel.add(txtpnClickAboveTo);
 		
 		JPanel generateFaceMapPanel = new JPanel();
 		generateFaceMapPanel.setBackground(SystemColor.controlHighlight);
-		generateFaceMapPanel.setBounds(797, 97, 457, 75);
+		generateFaceMapPanel.setBounds(797, 69, 457, 53);
 		mainContentPane.add(generateFaceMapPanel);
 		generateFaceMapPanel.setLayout(null);
 		
 		JButton button_1 = new JButton("Generate Face Map");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		button_1.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				
 			}
 		});
 		button_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
-		button_1.setBounds(187, 11, 260, 50);
+		button_1.setBounds(189, 11, 258, 35);
 		generateFaceMapPanel.add(button_1);
 		
 		JTextPane txtpnClickRightTo = new JTextPane();
 		txtpnClickRightTo.setText("Click right to generate a facemap.");
 		txtpnClickRightTo.setBackground(SystemColor.controlHighlight);
-		txtpnClickRightTo.setBounds(10, 11, 167, 50);
+		txtpnClickRightTo.setBounds(0, 0, 179, 53);
 		generateFaceMapPanel.add(txtpnClickRightTo);
 		
 		JPanel threatNamePanel = new JPanel();
 		threatNamePanel.setBackground(SystemColor.controlHighlight);
-		threatNamePanel.setBounds(797, 504, 457, 166);
+		threatNamePanel.setBounds(797, 390, 457, 280);
 		mainContentPane.add(threatNamePanel);
 		threatNamePanel.setLayout(null);
 		
@@ -142,12 +154,12 @@ public class FaceMapper extends JFrame
 		}
 		JList list = new JList(listModel);	
 		JScrollPane scrollPane = new JScrollPane(list);
-		scrollPane.setBounds(10, 11, 437, 144);
+		scrollPane.setBounds(10, 11, 437, 258);
 		threatNamePanel.add(scrollPane);
 		
 		JPanel threatDetectedImage = new JPanel();
 		threatDetectedImage.setBackground(Color.GRAY);
-		threatDetectedImage.setBounds(807, 191, 436, 288);
+		threatDetectedImage.setBounds(807, 139, 436, 240);
 		mainContentPane.add(threatDetectedImage);
 	}
 }
