@@ -30,7 +30,7 @@ import java.io.File;
 public class FaceMapper extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-	
+	Image storedImage;
 	private JPanel mainContentPane;
 
 	/**
@@ -66,6 +66,8 @@ public class FaceMapper extends JFrame
 		mainContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
+		
+
 		
 		JPanel rawImagePanel = new JPanel();
 		rawImagePanel.setBackground(SystemColor.controlHighlight);
@@ -112,35 +114,7 @@ public class FaceMapper extends JFrame
 					{
 						Image image = ImageIO.read(selectedFile);
 						
-						//DEBUG
-						//System.out.println(selectedFile.getAbsolutePath());
-						//image = ImageIO.read(new File("johnny.jpg"));
-						
-						ImageIcon hWTest= new ImageIcon(image);
-						
-						//DEBUG
-						//hWTest.getIconWidth();
-						System.out.println(hWTest.getIconWidth() + " " + hWTest.getIconHeight());
-						
-						if((hWTest.getIconWidth()*1.0)/hWTest.getIconHeight() > (rawImageLabelHolder.getWidth()*1.0)/rawImageLabelHolder.getHeight())
-						{
-							//DEBUG
-							//System.out.println("Width > Height");
-							
-							double scale = 1.0*rawImageLabelHolder.getWidth()/hWTest.getIconWidth();
-							image = image.getScaledInstance(rawImageLabelHolder.getWidth(), (int) Math.round(hWTest.getIconHeight()*scale), Image.SCALE_SMOOTH);
-						}
-						else
-						{
-							//DEBUG
-							//System.out.println("Height >= Width");
-							
-							double scale = 1.0*rawImageLabelHolder.getHeight()/hWTest.getIconHeight();
-							image = image.getScaledInstance((int) Math.round(hWTest.getIconWidth()*scale), rawImageLabelHolder.getHeight(), Image.SCALE_SMOOTH);
-						}
-						//image = image.getScaledInstance(rawImageLabelHolder.getWidth(), rawImageLabelHolder.getHeight(), Image.SCALE_SMOOTH);
-						
-						rawImageLabelHolder.setIcon(new ImageIcon(image));
+						rawImageLabelHolder.setIcon(new ImageIcon(scaleImageHelper(rawImageLabelHolder.getWidth(), rawImageLabelHolder.getHeight(), image)));
 					}
 					catch (Exception e1)
 					{
@@ -200,19 +174,8 @@ public class FaceMapper extends JFrame
 		
 		ArrayList<String> threatNamesInImage = new ArrayList<String>();
 		//DEBUG
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
-		threatNamesInImage.add("Zombie Hitler");
+		for(int i = 0; i < 15; i++)
+			threatNamesInImage.add("Zombie Hitler");
 		
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		for(String threatName : threatNamesInImage)
@@ -228,5 +191,33 @@ public class FaceMapper extends JFrame
 		threatDetectedImage.setBackground(Color.GRAY);
 		threatDetectedImage.setBounds(807, 139, 436, 240);
 		mainContentPane.add(threatDetectedImage);
+	}
+	
+	private Image scaleImageHelper(int labelWidth, int labelHeight, Image image)
+	{
+		ImageIcon hWTest= new ImageIcon(image);
+		
+		storedImage = image;
+		//DEBUG
+		//hWTest.getIconWidth();
+		System.out.println(hWTest.getIconWidth() + " " + hWTest.getIconHeight());
+		
+		if((hWTest.getIconWidth()*1.0)/hWTest.getIconHeight() > (labelWidth*1.0)/labelHeight)
+		{
+			//DEBUG
+			//System.out.println("Width > Height");
+			
+			double scale = 1.0*labelWidth/hWTest.getIconWidth();
+			return image.getScaledInstance(labelWidth, (int) Math.round(hWTest.getIconHeight()*scale), Image.SCALE_SMOOTH);
+		}
+		else
+		{
+			//DEBUG
+			//System.out.println("Height >= Width");
+			
+			double scale = 1.0*labelHeight/hWTest.getIconHeight();
+			return image.getScaledInstance((int) Math.round(hWTest.getIconWidth()*scale), labelHeight, Image.SCALE_SMOOTH);
+		}
+		//image = image.getScaledInstance(rawImageLabelHolder.getWidth(), rawImageLabelHolder.getHeight(), Image.SCALE_SMOOTH);
 	}
 }
