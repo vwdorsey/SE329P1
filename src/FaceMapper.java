@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +15,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextPane;
 
 import java.awt.SystemColor;
@@ -106,23 +110,43 @@ public class FaceMapper extends JFrame
 					
 					try
 					{
-						ImageIcon image = new ImageIcon(selectedFile.getAbsolutePath());
+						Image image = ImageIO.read(selectedFile);
 						
 						//DEBUG
-						System.out.println(selectedFile.getAbsolutePath());
-						image = new ImageIcon("johnny.jpg");
+						//System.out.println(selectedFile.getAbsolutePath());
+						//image = ImageIO.read(new File("johnny.jpg"));
 						
+						ImageIcon hWTest= new ImageIcon(image);
 						
-						ImageIcon resizedImage;
-						rawImageLabelHolder.setIcon(image);
+						//DEBUG
+						//hWTest.getIconWidth();
+						System.out.println(hWTest.getIconWidth() + " " + hWTest.getIconHeight());
+						
+						if((hWTest.getIconWidth()*1.0)/hWTest.getIconHeight() > (rawImageLabelHolder.getWidth()*1.0)/rawImageLabelHolder.getHeight())
+						{
+							//DEBUG
+							//System.out.println("Width > Height");
+							
+							double scale = 1.0*rawImageLabelHolder.getWidth()/hWTest.getIconWidth();
+							image = image.getScaledInstance(rawImageLabelHolder.getWidth(), (int) Math.round(hWTest.getIconHeight()*scale), Image.SCALE_SMOOTH);
+						}
+						else
+						{
+							//DEBUG
+							//System.out.println("Height >= Width");
+							
+							double scale = 1.0*rawImageLabelHolder.getHeight()/hWTest.getIconHeight();
+							image = image.getScaledInstance((int) Math.round(hWTest.getIconWidth()*scale), rawImageLabelHolder.getHeight(), Image.SCALE_SMOOTH);
+						}
+						//image = image.getScaledInstance(rawImageLabelHolder.getWidth(), rawImageLabelHolder.getHeight(), Image.SCALE_SMOOTH);
+						
+						rawImageLabelHolder.setIcon(new ImageIcon(image));
 					}
 					catch (Exception e1)
 					{
 						e1.printStackTrace();
 					}
-				}
-
-				
+				}		
 			}
 		});
 		uploadImageButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -130,7 +154,8 @@ public class FaceMapper extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				//DEBUG
+				System.out.println("something happened in the uploadbutton");
 			}
 		});
 		uploadImagePanel.setLayout(null);
@@ -188,6 +213,7 @@ public class FaceMapper extends JFrame
 		threatNamesInImage.add("Zombie Hitler");
 		threatNamesInImage.add("Zombie Hitler");
 		threatNamesInImage.add("Zombie Hitler");
+		
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		for(String threatName : threatNamesInImage)
 		{
