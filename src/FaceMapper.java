@@ -188,12 +188,12 @@ public class FaceMapper extends JFrame
 		threatNamesInImage.add("Zombie Hitler");
 		threatNamesInImage.add("Zombie Hitler");
 		threatNamesInImage.add("Zombie Hitler");
-		DefaultListModel listModel = new DefaultListModel();
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		for(String threatName : threatNamesInImage)
 		{
 			listModel.addElement(threatName);
 		}
-		JList list = new JList(listModel);	
+		JList<String> list = new JList<String>(listModel);	
 		JScrollPane threatListScrollPane = new JScrollPane(list);
 		threatListScrollPane.setBounds(10, 11, 437, 258);
 		threatNamePanel.add(threatListScrollPane);
