@@ -3,19 +3,25 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JTextPane;
+import javax.swing.ListModel;
+
 import java.awt.SystemColor;
 import java.awt.Color;
-import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class FaceMapper extends JFrame
 {
 	private static final long serialVersionUID = 1L;
+	
 	private JPanel mainContentPane;
 
 	/**
@@ -54,6 +60,7 @@ public class FaceMapper extends JFrame
 		
 		JPanel rawImagePanel = new JPanel();
 		rawImagePanel.setBackground(SystemColor.controlHighlight);
+		
 		rawImagePanel.setBounds(10, 11, 777, 325);
 		mainContentPane.add(rawImagePanel);
 		
@@ -113,9 +120,30 @@ public class FaceMapper extends JFrame
 		mainContentPane.add(threatNamePanel);
 		threatNamePanel.setLayout(null);
 		
-		JList list = new JList();
-		list.setBounds(10, 11, 437, 144);
-		threatNamePanel.add(list);
+		ArrayList<String> threatNamesInImage = new ArrayList<String>();
+		//DEBUG
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		threatNamesInImage.add("Zombie Hitler");
+		DefaultListModel listModel = new DefaultListModel();
+		for(String threatName : threatNamesInImage)
+		{
+			listModel.addElement(threatName);
+		}
+		JList list = new JList(listModel);	
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setBounds(10, 11, 437, 144);
+		threatNamePanel.add(scrollPane);
 		
 		JPanel threatDetectedImage = new JPanel();
 		threatDetectedImage.setBackground(Color.GRAY);
