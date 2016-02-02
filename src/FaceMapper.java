@@ -79,8 +79,10 @@ public class FaceMapper extends JFrame
 		faceMapImagePanel.setBackground(SystemColor.controlHighlight);
 		faceMapImagePanel.setBounds(10, 345, 777, 325);
 		mainContentPane.add(faceMapImagePanel);
+		faceMapImagePanel.setLayout(null);
 		
 		JLabel faceMapImageLabelHolder = new JLabel("");
+		faceMapImageLabelHolder.setBounds(0, 0, 777, 325);
 		faceMapImagePanel.add(faceMapImageLabelHolder);
 		
 		JPanel uploadImagePanel = new JPanel();
@@ -162,10 +164,13 @@ public class FaceMapper extends JFrame
 			public void mouseClicked(MouseEvent e)
 			{
 				//DEBUG
-				//System.out.println("testing mouse events");
+				System.out.println("testing mouse events on generate facemap");
 				
 				if (storedImage != null)
 				{
+					//DEBUG
+					System.out.println("storedImage is not null");
+					
 					//it begins
 					try
 					{
@@ -255,6 +260,8 @@ public class FaceMapper extends JFrame
 	
 	private Image generateFaceMapHelper(Image a)
 	{
-		return null;
+		//DEBUG
+		System.out.println("Returning same image.");
+		return a;
 	}
 }
