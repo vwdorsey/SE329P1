@@ -80,6 +80,9 @@ public class FaceMapper extends JFrame
 		faceMapImagePanel.setBounds(10, 345, 777, 325);
 		mainContentPane.add(faceMapImagePanel);
 		
+		JLabel faceMapImageLabelHolder = new JLabel("");
+		faceMapImagePanel.add(faceMapImageLabelHolder);
+		
 		JPanel uploadImagePanel = new JPanel();
 		uploadImagePanel.setBackground(SystemColor.controlHighlight);
 		uploadImagePanel.setBounds(797, 11, 457, 53);
@@ -151,7 +154,7 @@ public class FaceMapper extends JFrame
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				
+				//purposefully empty
 			}
 		});
 		genFaceMapButton.addMouseListener(new MouseAdapter()
@@ -164,6 +167,24 @@ public class FaceMapper extends JFrame
 				if (storedImage != null)
 				{
 					//it begins
+					try
+					{
+						Image facemap = generateFaceMapHelper(storedImage);
+						try
+						{
+							Image sizedFaceMap = scaleImageHelper(faceMapImageLabelHolder.getWidth(), faceMapImageLabelHolder.getHeight(), facemap);
+						
+							faceMapImageLabelHolder.setIcon(new ImageIcon(sizedFaceMap));
+						}
+						catch(Exception faceMapGenerationException)
+						{
+							//TODO: ERROR-HANDLING FOR IMPROPER FACEMAP
+						}
+					}
+					catch(Exception storedImageException)
+					{
+						//TODO: ERROR HANDLING FOR IMPROPER STORED IMAGE
+					}
 				}		
 			}
 		});
@@ -230,5 +251,10 @@ public class FaceMapper extends JFrame
 			return image.getScaledInstance((int) Math.round(hWTest.getIconWidth()*scale), labelHeight, Image.SCALE_SMOOTH);
 		}
 		//image = image.getScaledInstance(rawImageLabelHolder.getWidth(), rawImageLabelHolder.getHeight(), Image.SCALE_SMOOTH);
+	}
+	
+	private Image generateFaceMapHelper(Image a)
+	{
+		return null;
 	}
 }
