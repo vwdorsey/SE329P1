@@ -65,11 +65,8 @@ public class FaceMapper extends JFrame
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
 		
-		boolean hasThreat = false;
-		
 		JPanel rawImagePanel = new JPanel();
 		rawImagePanel.setBackground(SystemColor.controlHighlight);
-		
 		rawImagePanel.setBounds(10, 11, 777, 325);
 		mainContentPane.add(rawImagePanel);
 		rawImagePanel.setLayout(null);
@@ -199,12 +196,12 @@ public class FaceMapper extends JFrame
 						}
 						catch(Exception faceMapGenerationException)
 						{
-							//TODO: ERROR-HANDLING FOR IMPROPER FACEMAP
+							System.out.println("IMPROPER FACEMAP GENERATED");
 						}
 					}
 					catch(Exception storedImageException)
 					{
-						//TODO: ERROR HANDLING FOR IMPROPER STORED IMAGE
+						System.out.println("IMPROPER STORED IMAGE");
 					}
 				}		
 			}
@@ -226,6 +223,7 @@ public class FaceMapper extends JFrame
 		threatNamePanel.setLayout(null);
 		
 		ArrayList<String> threatNamesInImage = new ArrayList<String>();
+		
 		//DEBUG
 		for(int i = 0; i < 15; i++)
 			threatNamesInImage.add("Zombie Hitler");
