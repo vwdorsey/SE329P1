@@ -277,7 +277,8 @@ public class FaceMapper extends JFrame
 		System.out.println("Returning same image.");
 		
 		//DEBUG
-		threatDetected(j,true);
+		//threatDetected(j,true);
+		threatDetected(j,false);
 		
 		return a;
 	}
