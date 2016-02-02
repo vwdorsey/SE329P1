@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JTextArea;
 
 public class FaceMapper extends JFrame
 {
@@ -63,6 +64,8 @@ public class FaceMapper extends JFrame
 		mainContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
+		
+		boolean hasThreat = false;
 		
 		JPanel rawImagePanel = new JPanel();
 		rawImagePanel.setBackground(SystemColor.controlHighlight);
@@ -174,7 +177,7 @@ public class FaceMapper extends JFrame
 					//it begins
 					try
 					{
-						Image facemap = generateFaceMapHelper(storedImage);
+						Image facemap = generateFaceMapHelper(threatDetectionText, storedImage);
 						try
 						{
 							Image sizedFaceMap = scaleImageHelper(faceMapImageLabelHolder.getWidth(), faceMapImageLabelHolder.getHeight(), facemap);
@@ -228,6 +231,14 @@ public class FaceMapper extends JFrame
 		threatDetectedImage.setBackground(Color.GRAY);
 		threatDetectedImage.setBounds(807, 139, 436, 240);
 		mainContentPane.add(threatDetectedImage);
+		threatDetectedImage.setLayout(null);
+		
+		JTextPane threatDetectionText = new JTextPane();
+		threatDetectionText.setFont(new Font("Microsoft YaHei", Font.PLAIN, 20));
+		threatDetectionText.setText("No image loaded yet.");
+		threatDetectionText.setBackground(SystemColor.controlHighlight);
+		threatDetectionText.setBounds(10, 11, 416, 218);
+		threatDetectedImage.add(threatDetectionText);
 	}
 	
 	private Image scaleImageHelper(int labelWidth, int labelHeight, Image image)
@@ -258,10 +269,31 @@ public class FaceMapper extends JFrame
 		//image = image.getScaledInstance(rawImageLabelHolder.getWidth(), rawImageLabelHolder.getHeight(), Image.SCALE_SMOOTH);
 	}
 	
-	private Image generateFaceMapHelper(Image a)
+	private Image generateFaceMapHelper(JTextPane j, Image a)
 	{
 		//DEBUG
 		System.out.println("Returning same image.");
+		
+		//DEBUG
+		threatDetected(j,true);
+		
 		return a;
 	}
+	
+	private void threatDetected(JTextPane j, boolean b)
+	{
+		if(b)
+		{
+			j.setText("THREAT DETECTED");
+			j.setBackground(Color.RED);
+			j.setForeground(Color.BLACK);
+		}
+		else
+		{
+			j.setText("No threat detected.");
+			j.setBackground(Color.GREEN);
+			j.setForeground(Color.DARK_GRAY);
+		}
+	}
 }
+
