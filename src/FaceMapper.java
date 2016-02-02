@@ -154,6 +154,19 @@ public class FaceMapper extends JFrame
 		mainContentPane.add(generateFaceMapPanel);
 		generateFaceMapPanel.setLayout(null);
 		
+		JPanel threatDetectedImage = new JPanel();
+		threatDetectedImage.setBackground(Color.GRAY);
+		threatDetectedImage.setBounds(807, 139, 436, 240);
+		mainContentPane.add(threatDetectedImage);
+		threatDetectedImage.setLayout(null);
+		
+		JTextPane threatDetectionText = new JTextPane();
+		threatDetectionText.setFont(new Font("Microsoft YaHei", Font.PLAIN, 20));
+		threatDetectionText.setText("No image loaded yet.");
+		threatDetectionText.setBackground(SystemColor.controlHighlight);
+		threatDetectionText.setBounds(10, 11, 416, 218);
+		threatDetectedImage.add(threatDetectionText);
+		
 		JButton genFaceMapButton = new JButton("Generate Face Map");
 		genFaceMapButton.addActionListener(new ActionListener()
 		{
@@ -227,18 +240,7 @@ public class FaceMapper extends JFrame
 		threatListScrollPane.setBounds(10, 11, 437, 258);
 		threatNamePanel.add(threatListScrollPane);
 		
-		JPanel threatDetectedImage = new JPanel();
-		threatDetectedImage.setBackground(Color.GRAY);
-		threatDetectedImage.setBounds(807, 139, 436, 240);
-		mainContentPane.add(threatDetectedImage);
-		threatDetectedImage.setLayout(null);
-		
-		JTextPane threatDetectionText = new JTextPane();
-		threatDetectionText.setFont(new Font("Microsoft YaHei", Font.PLAIN, 20));
-		threatDetectionText.setText("No image loaded yet.");
-		threatDetectionText.setBackground(SystemColor.controlHighlight);
-		threatDetectionText.setBounds(10, 11, 416, 218);
-		threatDetectedImage.add(threatDetectionText);
+
 	}
 	
 	private Image scaleImageHelper(int labelWidth, int labelHeight, Image image)
