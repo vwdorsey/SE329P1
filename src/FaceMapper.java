@@ -162,8 +162,7 @@ public class FaceMapper extends JFrame
 		threatDetectionText.setBackground(SystemColor.controlHighlight);
 		threatDetectionText.setBounds(10, 11, 416, 218);
 		threatDetectedImage.add(threatDetectionText);
-		
-		
+			
 		JPanel threatNamePanel = new JPanel();
 		threatNamePanel.setBackground(SystemColor.controlHighlight);
 		threatNamePanel.setBounds(797, 390, 457, 280);
@@ -229,11 +228,14 @@ public class FaceMapper extends JFrame
 	
 	private Image scaleImageHelper(int labelWidth, int labelHeight, Image image)
 	{
+		//as a helper method, this should never be null and should be filtered earlier
+		assert(image != null);
+		
 		ImageIcon hWTest = new ImageIcon(image);
 		
 		storedImage = image;
+		
 		//DEBUG
-		//hWTest.getIconWidth();
 		//System.out.println(hWTest.getIconWidth() + " " + hWTest.getIconHeight());
 		
 		if((hWTest.getIconWidth()*1.0)/hWTest.getIconHeight() > (labelWidth*1.0)/labelHeight)
@@ -255,17 +257,18 @@ public class FaceMapper extends JFrame
 		//image = image.getScaledInstance(rawImageLabelHolder.getWidth(), rawImageLabelHolder.getHeight(), Image.SCALE_SMOOTH);
 	}
 	
+	//it is in here that the image would be turned into
 	private Image generateFaceMapHelper(JTextPane jT, JScrollPane jSP, Image a)
 	{
 		//DEBUG
 		System.out.println("Returning same image.");
 		
 		//DEBUG
-		//threatDetected(j,true);
-		threatDetected(jT,false);
+		//threatDetected(jt,true);
+		
+		ArrayList<String> threatNamesInImage = new ArrayList<String>();
 		
 		//DEBUG
-		ArrayList<String> threatNamesInImage = new ArrayList<String>();
 		for(int i = 0; i < 15; i++)
 			threatNamesInImage.add("Ninja #" + i);
 		
@@ -276,6 +279,10 @@ public class FaceMapper extends JFrame
 		}
 		JList<String> list = new JList<String>(listModel);	
 		
+		//updates warning label
+		threatDetected(jT, !threatNamesInImage.isEmpty());
+		
+		//adds names to viewport in scrollpane
 		jSP.setViewportView(list);
 		
 		return a;
