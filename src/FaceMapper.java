@@ -163,6 +163,17 @@ public class FaceMapper extends JFrame
 		threatDetectionText.setBounds(10, 11, 416, 218);
 		threatDetectedImage.add(threatDetectionText);
 		
+		
+		JPanel threatNamePanel = new JPanel();
+		threatNamePanel.setBackground(SystemColor.controlHighlight);
+		threatNamePanel.setBounds(797, 390, 457, 280);
+		mainContentPane.add(threatNamePanel);
+		threatNamePanel.setLayout(null);
+		
+		JScrollPane threatListScrollPane = new JScrollPane();
+		threatListScrollPane.setBounds(10, 11, 437, 258);
+		threatNamePanel.add(threatListScrollPane);
+		
 		JButton genFaceMapButton = new JButton("Generate Face Map");
 		genFaceMapButton.addActionListener(new ActionListener()
 		{
@@ -186,7 +197,7 @@ public class FaceMapper extends JFrame
 					//it begins
 					try
 					{
-						Image facemap = generateFaceMapHelper(threatDetectionText, storedImage);
+						Image facemap = generateFaceMapHelper(threatDetectionText, threatListScrollPane, storedImage);
 						try
 						{
 							Image sizedFaceMap = scaleImageHelper(faceMapImageLabelHolder.getWidth(), faceMapImageLabelHolder.getHeight(), facemap);
@@ -214,30 +225,6 @@ public class FaceMapper extends JFrame
 		genFaceMapTextGuide.setBackground(SystemColor.controlHighlight);
 		genFaceMapTextGuide.setBounds(0, 0, 179, 53);
 		generateFaceMapPanel.add(genFaceMapTextGuide);
-		
-		JPanel threatNamePanel = new JPanel();
-		threatNamePanel.setBackground(SystemColor.controlHighlight);
-		threatNamePanel.setBounds(797, 390, 457, 280);
-		mainContentPane.add(threatNamePanel);
-		threatNamePanel.setLayout(null);
-		
-		ArrayList<String> threatNamesInImage = new ArrayList<String>();
-		
-		//DEBUG
-		for(int i = 0; i < 15; i++)
-			threatNamesInImage.add("Zombie Hitler");
-		
-		DefaultListModel<String> listModel = new DefaultListModel<String>();
-		for(String threatName : threatNamesInImage)
-		{
-			listModel.addElement(threatName);
-		}
-		JList<String> list = new JList<String>(listModel);	
-		JScrollPane threatListScrollPane = new JScrollPane(list);
-		threatListScrollPane.setBounds(10, 11, 437, 258);
-		threatNamePanel.add(threatListScrollPane);
-		
-
 	}
 	
 	private Image scaleImageHelper(int labelWidth, int labelHeight, Image image)
@@ -268,14 +255,28 @@ public class FaceMapper extends JFrame
 		//image = image.getScaledInstance(rawImageLabelHolder.getWidth(), rawImageLabelHolder.getHeight(), Image.SCALE_SMOOTH);
 	}
 	
-	private Image generateFaceMapHelper(JTextPane j, Image a)
+	private Image generateFaceMapHelper(JTextPane jT, JScrollPane jSP, Image a)
 	{
 		//DEBUG
 		System.out.println("Returning same image.");
 		
 		//DEBUG
 		//threatDetected(j,true);
-		threatDetected(j,false);
+		threatDetected(jT,false);
+		
+		//DEBUG
+		ArrayList<String> threatNamesInImage = new ArrayList<String>();
+		for(int i = 0; i < 15; i++)
+			threatNamesInImage.add("Ninja #" + i);
+		
+		DefaultListModel<String> listModel = new DefaultListModel<String>();
+		for(String threatName : threatNamesInImage)
+		{
+			listModel.addElement(threatName);
+		}
+		JList<String> list = new JList<String>(listModel);	
+		
+		jSP.setViewportView(list);
 		
 		return a;
 	}
