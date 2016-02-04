@@ -119,7 +119,7 @@ public class FaceMapper extends JFrame
 					try
 					{
 						Image image = ImageIO.read(selectedFile);
-						
+						storedImage = image;
 						rawImageLabelHolder.setIcon(new ImageIcon(scaleImageHelper(rawImageLabelHolder.getWidth(), rawImageLabelHolder.getHeight(), image)));
 					}
 					catch (Exception e1)
@@ -150,18 +150,21 @@ public class FaceMapper extends JFrame
 		uploadImageTextGuide.setBackground(SystemColor.controlHighlight);
 		uploadImageTextGuide.setText("Click to the right to upload the image for detection or to load faces into the threat database.");
 		
+		//panel for facemap generation
 		JPanel generateFaceMapPanel = new JPanel();
 		generateFaceMapPanel.setBackground(SystemColor.controlHighlight);
 		generateFaceMapPanel.setBounds(797, 69, 457, 53);
 		mainContentPane.add(generateFaceMapPanel);
 		generateFaceMapPanel.setLayout(null);
 		
+		//panel for showing whether a threat has been detected or not
 		JPanel threatDetectedImage = new JPanel();
 		threatDetectedImage.setBackground(Color.GRAY);
 		threatDetectedImage.setBounds(807, 139, 436, 240);
 		mainContentPane.add(threatDetectedImage);
 		threatDetectedImage.setLayout(null);
 		
+		//text to say whether a threat has been detected or not, defaults to no image loaded
 		JTextPane threatDetectionText = new JTextPane();
 		threatDetectionText.setFont(new Font("Microsoft YaHei", Font.PLAIN, 20));
 		threatDetectionText.setText("No image loaded yet.");
@@ -169,16 +172,19 @@ public class FaceMapper extends JFrame
 		threatDetectionText.setBounds(10, 11, 416, 218);
 		threatDetectedImage.add(threatDetectionText);
 			
+		//panel to hold list of threats by name
 		JPanel threatNamePanel = new JPanel();
 		threatNamePanel.setBackground(SystemColor.controlHighlight);
 		threatNamePanel.setBounds(797, 390, 457, 280);
 		mainContentPane.add(threatNamePanel);
 		threatNamePanel.setLayout(null);
 		
+		//default scrollpane, unloaded to hold threat names
 		JScrollPane threatListScrollPane = new JScrollPane();
 		threatListScrollPane.setBounds(10, 11, 437, 258);
 		threatNamePanel.add(threatListScrollPane);
 		
+		//facemap generation button
 		JButton genFaceMapButton = new JButton("Generate Face Map");
 		genFaceMapButton.addActionListener(new ActionListener()
 		{
@@ -192,12 +198,12 @@ public class FaceMapper extends JFrame
 			public void mouseClicked(MouseEvent e)
 			{
 				//DEBUG
-				System.out.println("testing mouse events on generate facemap");
+				//System.out.println("testing mouse events on generate facemap");
 				
 				if (storedImage != null)
 				{
 					//DEBUG
-					System.out.println("storedImage is not null");
+					//System.out.println("storedImage is not null");
 					
 					//it begins
 					try
@@ -224,7 +230,9 @@ public class FaceMapper extends JFrame
 		genFaceMapButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		genFaceMapButton.setBounds(189, 11, 258, 35);
 		generateFaceMapPanel.add(genFaceMapButton);
+		//end generation of facemap button
 		
+		//information on generation of facemap
 		JTextPane genFaceMapTextGuide = new JTextPane();
 		genFaceMapTextGuide.setText("Click right to generate a facemap.");
 		genFaceMapTextGuide.setBackground(SystemColor.controlHighlight);
@@ -232,14 +240,13 @@ public class FaceMapper extends JFrame
 		generateFaceMapPanel.add(genFaceMapTextGuide);
 	}
 	
+	//scales image to label and creates icon
 	private Image scaleImageHelper(int labelWidth, int labelHeight, Image image)
 	{
 		//as a helper method, this should never be null and should be filtered earlier
 		assert(image != null);
 		
 		ImageIcon hWTest = new ImageIcon(image);
-		
-		storedImage = image;
 		
 		//DEBUG
 		//System.out.println(hWTest.getIconWidth() + " " + hWTest.getIconHeight());
@@ -289,7 +296,7 @@ public class FaceMapper extends JFrame
 		ArrayList<String> threatNamesInImage = new ArrayList<String>();
 		
 		//DEBUG
-		for(int i = 0; i < 15; i++)
+		for(int i = 1; i <= 15; i++)
 			threatNamesInImage.add("Ninja #" + i);
 		
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
@@ -310,6 +317,7 @@ public class FaceMapper extends JFrame
 		return a;
 	}
 	
+	//red for detected, green for undetected
 	private void threatDetected(JTextPane j, boolean b)
 	{
 		if(b)
