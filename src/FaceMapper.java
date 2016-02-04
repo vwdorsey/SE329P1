@@ -30,9 +30,7 @@ public class FaceMapper extends JFrame
 	Image storedImage;
 	private JPanel mainContentPane;
 
-	/**
-	 * Launch the application.
-	 */
+	//Launch the application.
 	public static void main(String[] args)
 	{
 		EventQueue.invokeLater(new Runnable()
@@ -52,10 +50,9 @@ public class FaceMapper extends JFrame
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+	//Create the frame.
 	public FaceMapper() {
+		//block for main window
 		setTitle("Code Warriors Threat Detector");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1280, 720);
@@ -64,31 +61,37 @@ public class FaceMapper extends JFrame
 		setContentPane(mainContentPane);
 		mainContentPane.setLayout(null);
 		
+		//image panel for main given image
 		JPanel rawImagePanel = new JPanel();
 		rawImagePanel.setBackground(SystemColor.controlHighlight);
 		rawImagePanel.setBounds(10, 11, 777, 325);
 		mainContentPane.add(rawImagePanel);
 		rawImagePanel.setLayout(null);
 		
+		//holder for main given image
 		JLabel rawImageLabelHolder = new JLabel("");
 		rawImageLabelHolder.setBounds(0, 0, 777, 325);
 		rawImagePanel.add(rawImageLabelHolder);
 		
+		//image panel for facemapped image
 		JPanel faceMapImagePanel = new JPanel();
 		faceMapImagePanel.setBackground(SystemColor.controlHighlight);
 		faceMapImagePanel.setBounds(10, 345, 777, 325);
 		mainContentPane.add(faceMapImagePanel);
 		faceMapImagePanel.setLayout(null);
 		
+		//holder for facemapped image
 		JLabel faceMapImageLabelHolder = new JLabel("");
 		faceMapImageLabelHolder.setBounds(0, 0, 777, 325);
 		faceMapImagePanel.add(faceMapImageLabelHolder);
 		
+		//button panel for uploading an image
 		JPanel uploadImagePanel = new JPanel();
 		uploadImagePanel.setBackground(SystemColor.controlHighlight);
 		uploadImagePanel.setBounds(797, 11, 457, 53);
 		mainContentPane.add(uploadImagePanel);
 		
+		//upload image button
 		JButton uploadImageButton = new JButton("Upload Image");
 		uploadImageButton.addMouseListener(new MouseAdapter()
 		{
@@ -109,8 +112,9 @@ public class FaceMapper extends JFrame
 				if (result == JFileChooser.APPROVE_OPTION)
 				{
 					selectedFile = jFileChooser.getSelectedFile();
+					
 					//DEBUG
-					System.out.println(selectedFile.getAbsolutePath());
+					//System.out.println(selectedFile.getAbsolutePath());
 					
 					try
 					{
@@ -131,18 +135,20 @@ public class FaceMapper extends JFrame
 			public void actionPerformed(ActionEvent e)
 			{
 				//DEBUG
-				System.out.println("something happened in the uploadbutton");
+				//System.out.println("something happened in the uploadbutton");
 			}
 		});
 		uploadImagePanel.setLayout(null);
 		uploadImageButton.setBounds(244, 11, 203, 31);
 		uploadImagePanel.add(uploadImageButton);
+		//end of upload image button
 		
+		//information about uploading image
 		JTextPane uploadImageTextGuide = new JTextPane();
 		uploadImageTextGuide.setBounds(0, 0, 249, 53);
 		uploadImagePanel.add(uploadImageTextGuide);
 		uploadImageTextGuide.setBackground(SystemColor.controlHighlight);
-		uploadImageTextGuide.setText("Cliick right to upload the image for detection or to load faces into the threat database.");
+		uploadImageTextGuide.setText("Click to the right to upload the image for detection or to load faces into the threat database.");
 		
 		JPanel generateFaceMapPanel = new JPanel();
 		generateFaceMapPanel.setBackground(SystemColor.controlHighlight);
