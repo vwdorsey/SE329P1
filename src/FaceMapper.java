@@ -259,12 +259,26 @@ public class FaceMapper extends JFrame
 	
 	//it is in here that the image would be turned into
 	private Image generateFaceMapHelper(JTextPane jT, JScrollPane jSP, Image a)
-	{
+	{		
 		//DEBUG
-		System.out.println("Returning same image.");
+		//threatDetected(jT,true);
 		
-		//DEBUG
-		//threatDetected(jt,true);
+		/*
+		 * It is important to note that it is at this point the project become
+		 * a bit too difficult due to technology available.
+		 * 
+		 * However it is logical at this point to determine what would happen here.
+		 * 
+		 * The image would be converted and sent to a remote server which would
+		 * generate a face map and send us back XML information about the people which
+		 * would be parsed here and compared to a database of threats, and those that
+		 * match would be added to the list of names below, which would trigger the threat
+		 * detection.
+		 * 
+		 * As mentioned previously no API allowed us to do this within the time given.
+		 * Perhaps over a period of a month with multiple developers,
+		 * but not a week and change.
+		 */		
 		
 		ArrayList<String> threatNamesInImage = new ArrayList<String>();
 		
@@ -282,9 +296,11 @@ public class FaceMapper extends JFrame
 		//updates warning label
 		threatDetected(jT, !threatNamesInImage.isEmpty());
 		
-		//adds names to viewport in scrollpane
+		//adds names to viewport in scroll pane
 		jSP.setViewportView(list);
 		
+		//DEBUG
+		System.out.println("Returning same image.");
 		return a;
 	}
 	
